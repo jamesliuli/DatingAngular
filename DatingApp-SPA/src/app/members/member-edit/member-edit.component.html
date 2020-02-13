@@ -1,0 +1,61 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col sm-4">
+        <h1>Your Profile</h1>
+      </div>
+      <div class="col-sm-8">
+        <div *ngIf="editForm.dirty" class="alert alert-info">
+          <p><strong>Information:</strong>Any unsaved change will be lost!</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="card">
+          <img src="{{user?.photoUrl}}" alt="{{user?.knownAs}}" class="card-img-top img-thumbnail">
+          <div class="card-body">
+            <div>
+              <strong>Location:</strong>
+              <p>{{user?.city}},{{user?.country}}</p>
+            </div>
+            <div>
+                <strong>Last Active:</strong>
+                <p>{{user?.lastActive}}</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save Change</button>
+            </div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="tab-panel">
+          <tabset>
+            <tab heading="Edit Profile">
+              <form  #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
+                  <h4>Description</h4>
+                  <textarea name="introduction" rows="6" class="form-control" [(ngModel)]="user.introduction"></textarea>
+                  <h4>Looking For</h4>
+                  <textarea name="lookingFor" rows="6" class="form-control" [(ngModel)]="user.lookingFor"></textarea>
+                  <h4>Interests</h4>
+                  <textarea name="interests" rows="6" class="form-control" [(ngModel)]="user.interests"></textarea>
+                  <div class="form-inline mt-3">
+                    <label for="City">City</label>
+                    <input type="text" class="form-control" name="city" [(ngModel)]="user.city">
+                    <label for="Country">Country</label>
+                    <input type="text" class="form-control" name="Country" [(ngModel)]="user.country">
+                  </div>
+                  <!-- <div class="form-group mt-3">
+                      <button type="submit" class="btn btn-primary mr-3">Save</button>
+                      <button type="button" class="btn btn-secondary" (click)="Cancel()">Cancel</button>
+                  </div> -->
+              </form>
+            </tab>
+              <tab heading="Edit Photos">
+              </tab>
+          </tabset>
+  
+        </div>
+      </div>
+    </div>
+  </div>

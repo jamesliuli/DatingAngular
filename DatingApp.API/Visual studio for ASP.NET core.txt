@@ -1,0 +1,35 @@
+asp.net core   find ref using:  ctrl + .
+install sqllite:  use nuget package installed 
+crl + shfit + P
+type nuGet
+type Microsoft.EntityFrameworkCore.Sqlite
+click restore to install
+
+create database under entityframework
+
+$dotnet ef migrations add InitialCreate
+PS C:\Dev\DatingApp\DatingApp.API> dotnet ef migrations add InitialCreate
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 2.2.4-servicing-10062 initialized 'DataContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite' with options: None
+Done. To undo this action, use 'ef migrations remove'
+
+shift+ ctrp +P -- install package
+
+install dotnet core 3.0
+https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-3.0.100-windows-x64-installer
+
+
+check token returned:
+
+https://jwt.io
+
+add package 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+in postman,
+set GET header
+Authorization 
+Value: Bear eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJqb2huIiwibmJmIjoxNTc0MDIxMDI1LCJleHAiOjE1NzQxMDc0MjUsImlhdCI6MTU3
+
+//Angular
+http://

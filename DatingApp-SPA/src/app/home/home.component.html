@@ -1,0 +1,14 @@
+<div class="container mt-5">
+  <div style="text-align:center">
+    <div class="text-center">
+      <button class="btn btn-primary btn-lg mr-3" (click)="registerToggle()">Register</button>    
+      <button class="btn btn-primary btn-lg">Learn more</button>    
+    </div>
+  </div>
+
+  <div *ngIf="showRegister" class="container">
+      <div class="row justify-content-center">
+        <app-register (CancelRegister)="registerToggle()" [values]="valuesFromHome"></app-register>
+      </div>
+  </div>
+</div>

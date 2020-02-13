@@ -1,0 +1,16 @@
+Source code repostitories:
+
+ASP.NET Core 2.2 version: https://github.com/TryCatchLearn/DatingApp
+
+ASP.NET Core 3.0 version: https://github.com/TryCatchLearn/DatingApp30
+
+www.git-scm.com
+$git  //start git
+$git status //show remote repostitories
+
+//initialize a repository empty
+$git init
+$git config --global user.email "jamesliuli@gmail.com"
+$git config --global user.name "jamesliuli"
+
+$git remote add origin https://github.com/jamesliuli/DatingAPP.git

@@ -1,0 +1,180 @@
+2020 Feb 13
+$dotnet --info
+$dotnet --version
+$dotnet -h
+
+#1 create dotnet projetc
+$dornet new webapi -n DatingApp.API  
+
+#2 add extension to VS code
+a. C# for Visual Studio Code by OminiSharp
+b. C# Extensions ( No longer under development)
+c. Nuget Package manager
+
+#3 ctrl-shfit -P> reload windows  //reload windows with extension enabled
+
+#File->preference->settings-> >Exclude Patterns
+bin/*
+obj/*
+
+//show installed dotnet core Version
+
+//test webapi request:
+http://localhost:5000/api/values
+
+//create prop item auto by typing "prop" in model class
+
+asp.net core   find ref using:  ctrl + .
+
+install sqllite:  use nuget package installed 
+crl + shfit + P
+type nuGet add
+type Microsoft.EntityFrameworkCore.Sqlite
+click restore to install
+type Microsoft.EntityFrameworkCore.Design
+
+//create database under entityframework
+
+$dotnet tool install --global dotnet-ef
+
+$dotnet ef migrations add InitialCreate
+
+$ dotnet ef database update
+
+$dotnet ef migrations -h
+
+$dotnet ef migrations remove
+//remove last migration -- before Update
+
+$dotnet ef database update  //apply migration
+//drop database
+$dotnet ef database drop
+
+
+//install angular
+$npm install -g @angular/cli
+$ng new DatingApp-SPA //create bew prj
+?would yiu like to add Angular routing (y/n) y
+
+
+
+installed extension:
+C#
+C# Extensions
+Angular v7 Snippets
+Angular files
+Angular Language Service
+Angular2-switch
+////usage
+alt+o(Windows) shift+alt+o(macOS)
+
+//HttpClientModule ->http Request 
+come from "@angular/common/http" defined in package.json
+
+if on .ts|.css|.spec.ts: go to html
+if on .html: go to previous
+
+alt+i(Windows) shift+alt+i(macOS)
+
+if on .ts|.html|.spec.ts: go to css
+if on .css: go to previous
+
+alt+u(Windows) shift+alt+u(macOS)
+
+if on .css|.html|.spec.ts: go to ts
+if on ts: go to previous
+
+alt+p(Windows) shift+alt+p(macOS)
+
+if on .ts|.css|.html: go to spec.ts
+if on .spec.ts: go to previous
+
+Bracket Pair Colonizy 2.0
+Material Icon Theme 3.5.0
+Path Intellisense
+Prettier
+TSLint 1.0.30
+
+shft+ ctrl + P -> cmd pilot>
+
+https://getboostrap.com
+
+>npm install boostrap font-awesome
+
+>npm install install @alert
+js
+>npm install @auth0/angular-jwt
+
+<i></i> -- icon tag
+
+return !!token
+
+//inf update failed:
+rm npm_modules
+delete package-lock.json
+npm install
+
+npm install alertifyjs
+npm remove alertify
+
+//token decoder
+npm install @auth0/angular-jwt
+
+//dropdwon menu
+npm install ngx-bootstrap@5.3.2 --save
+
+// add color style
+npm install bootswatch
+
+
+install nuGet
+//AutoMapper.Extensions.Microsoft.DependencyInjection
+
+//npm install ngx-gallery
+                <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
+
+
+//debug Augular 
+Add Configure: lunach + attch Chrome
+
+Dec1, 2019
+can't use below path! 'edit' will be consided as 'id', WRONG!
+             { path: 'members/:id', component: MemberDetailComponent,
+                                    resolve: {user: MemberDetailResolver}},
+             { path: 'members/edit', component: MemberEditComponent},
+
+//form-control must have correct name, otherwise form reset will fail!!!
+  <textarea name="introduction" rows="6" class="form-control" [(ngModel)]="user.introduction"></textarea>            
+
+//nuget add
+CloudinaryDotNet 1.9.1
+
+in cspproj shows
+<PackageReference Include="CloudinaryDotNet" Version="1.9.1"/>
+
+npm install ng2-file-uoload --save
+
+//www.caniuse.com
+use datepicker instead of html5 date type for input
+
+//use 'debugger' in ng code. to stop and debug
+
+//array op:
+unshift; add to begin of an array
+messages.splice(messages.findIndex( m=> m.id === id), 1)
+
+//(clikc)="$event.stopPropagation()" 
+
+// change database provider
+https://docs.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli
+
+use sqlServer for windows and MySql fro other
+
+install package for dot net 
+Microsoft.EntityFrameworkCore.SqlServer
+
+
+//publish to Linux Server
+
+$dotnet publish --configuration Release
+
