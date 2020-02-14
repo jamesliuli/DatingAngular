@@ -13,4 +13,5 @@ $git init
 $git config --global user.email "jamesliuli@gmail.com"
 $git config --global user.name "jamesliuli"
 
-$git remote add origin https://github.com/jamesliuli/DatingAPP.git
+$git remote add origin https://github.com/jamesliuli/DatingAngular.git
+

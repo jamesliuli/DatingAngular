@@ -39,6 +39,8 @@ $dotnet tool install --global dotnet-ef
 
 $dotnet ef migrations add InitialCreate
 
+$dotnet ef migrations add AddUserEntity
+
 $ dotnet ef database update
 
 $dotnet ef migrations -h
@@ -118,7 +120,30 @@ npm install alertifyjs
 npm remove alertify
 
 //token decoder
+//JSOn web Token (RFC 7519)
+JWT Structure
+{        //HEADER
+  "alg": "HS512",
+  "typ": "JWT"
+}
+{        //payload
+  "nameid": "8",
+  "unique_name": "frank",
+  "nbf":1511111407
+  "exp":1511111508
+  "iat":1511110407
+}
+HMACSHA256(  //Secret
+  base64UrlEncode(header) + "." + 
+  base64UrlEncode(payload),
+  secret 
+)
+//check generated token from Server
+https://jwt.io
+
 npm install @auth0/angular-jwt
+
+
 
 //dropdwon menu
 npm install ngx-bootstrap@5.3.2 --save
