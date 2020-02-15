@@ -11,7 +11,7 @@ import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsave-change.guard';
 
-const routes: Routes = [
+const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   {
     path: '',
@@ -21,6 +21,7 @@ const routes: Routes = [
              { path: 'messages', component: MessagesComponent},
              { path: 'lists', component: ListsComponent},
              { path: 'members', component: MemberListComponent},
+             //{ path: 'members', component: MemberListComponent, canDeactivate: [AuthGuard]},  //canActive for specific path
              { path: 'members/:id', component: MemberDetailComponent,
                                     resolve: {user: MemberDetailResolver}},
              { path: 'member/edit', component: MemberEditComponent,         // 'members/edit' would be wrong as 'members/:id'
@@ -32,7 +33,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

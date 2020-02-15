@@ -164,6 +164,10 @@ install nuGet
 Add Configure: lunach + attch Chrome
 
 Dec1, 2019
+Feb 14, 2020
+add gurad
+$ng g guard auth --skipTests
+
 can't use below path! 'edit' will be consided as 'id', WRONG!
              { path: 'members/:id', component: MemberDetailComponent,
                                     resolve: {user: MemberDetailResolver}},
