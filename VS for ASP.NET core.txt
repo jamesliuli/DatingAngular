@@ -103,8 +103,9 @@ https://getboostrap.com
 
 >npm install boostrap font-awesome
 
->npm install install @alert
-js
+>npm install install @alertifyjs
+
+//checkout https://github.com/auth0/angular-jwt
 >npm install @auth0/angular-jwt
 
 <i></i> -- icon tag
@@ -202,4 +203,9 @@ Microsoft.EntityFrameworkCore.SqlServer
 //publish to Linux Server
 
 $dotnet publish --configuration Release
+
+
+//format document
+prefer->Prettier->single quote
+shift+alt+F 
 

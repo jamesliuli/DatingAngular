@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    Authorization: 'Bearer ' + localStorage.getItem('token')
+  })
+};
 
 @Component({
   selector: 'app-home',
@@ -21,8 +27,9 @@ export class HomeComponent implements OnInit {
   }
 
   getValues()  {
-    this.http.get('http://localhost:5000/api/values').subscribe( response => {
+    this.http.get('http://localhost:5000/api/values', httpOptions).subscribe( response => {
       this.valuesFromHome = response;
+      console.log(this.valuesFromHome);
     },
     error => {
       console.log(error);
