@@ -1,6 +1,14 @@
 2020 Feb 18
 Alt + O //switch btw ts and template (html) file
+
 class="col-lg-2 col-md-3 col-sm-6" large screen/midium screen/small screen
+
+//use @ViewChild is ts to get access to ngForm object like:  *ngIf="editForm.dirty" or this.editForm.reset(this.user);
+  @ViewChild('editForm') editForm: NgForm;
+
+//persistent
+//controller
+[HttpPut("{id}")]
 
 2020 Feb 13
 
