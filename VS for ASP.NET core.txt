@@ -1,4 +1,9 @@
+2020 Feb 18
+Alt + O //switch btw ts and template (html) file
+class="col-lg-2 col-md-3 col-sm-6" large screen/midium screen/small screen
+
 2020 Feb 13
+
 $dotnet --info
 $dotnet --version
 $dotnet -h
@@ -156,7 +161,7 @@ npm install bootswatch
 install nuGet
 //AutoMapper.Extensions.Microsoft.DependencyInjection
 
-//npm install ngx-gallery
+$npm install ngx-gallery
                 <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
 
 

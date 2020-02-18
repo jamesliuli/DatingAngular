@@ -44,6 +44,7 @@ export class MemberDetailComponent implements OnInit {
 
   }
 
+  //not required, since we get from 'member deatil resolver'
   loadUser() {
     this.userService.getUser(this.route.snapshot.params.id).subscribe( (user: User) => {
        this.user = user;
