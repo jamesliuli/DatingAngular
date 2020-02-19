@@ -10,6 +10,12 @@ class="col-lg-2 col-md-3 col-sm-6" large screen/midium screen/small screen
 //controller
 [HttpPut("{id}")]
 
+Any to Any Communication btw Components
+
+2020 Feb 19
+//filter in ts:
+ this.currentMain = this.photos.filter(p => p.isMain === true)[0];
+ 
 2020 Feb 13
 
 $dotnet --info
@@ -226,3 +232,5 @@ $dotnet publish --configuration Release
 prefer->Prettier->single quote
 shift+alt+F 
 
+//ng2 file upload
+$npm install ng2-file-upload@1.3.0 --save

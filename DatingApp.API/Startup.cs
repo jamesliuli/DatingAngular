@@ -86,7 +86,7 @@ namespace DatingApp.API
             // app.UseHttpsRedirection();  //remove launchSettings.json https as well
             app.UseRouting();
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());  //don' use allowcredential, which will allow cookies
 
             app.UseAuthentication();
             app.UseAuthorization();

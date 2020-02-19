@@ -40,7 +40,7 @@ export class MemberEditComponent implements OnInit {
   updateUser() {
     console.log( this.user);
 
-    this.userService.updateUser(this.authService.docodedToken.nameid, this.user).subscribe( next => {
+    this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe( next => {
         this.alertify.success('User profile uodated');
     }, error => {
       this.alertify.error(error);
@@ -50,5 +50,10 @@ export class MemberEditComponent implements OnInit {
 
   Cancel() {
 
+  }
+
+  onMemberPhotoChanged(url: string) {
+    this.user.photoUrl = url;
+    console.log(url);
   }
 }
