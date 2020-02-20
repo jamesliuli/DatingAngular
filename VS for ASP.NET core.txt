@@ -3,6 +3,13 @@
 //validate process
 //ngx-bbostrap datepicker
 
+//angualr timeago pipe
+https://npmjs.com/package/time-ago-pipe
+$npm install time-ago-pipe --save
+
+//user Action Filter as Service to LogUserActivity 
+//for update last active time
+
 2020 Feb 18
 Alt + O //switch btw ts and template (html) file
 

@@ -15,6 +15,7 @@ using DatingApp.API.Helps;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using DatingApp.API.Helpers;
 
 namespace DatingApp.API
 {
@@ -56,6 +57,8 @@ namespace DatingApp.API
                     ValidateAudience = false
                 };
             });
+
+            services.AddScoped<LogUserActivity>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
