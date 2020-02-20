@@ -1,3 +1,8 @@
+2020 FEB 20
+//ng: Reactive Form 
+//validate process
+//ngx-bbostrap datepicker
+
 2020 Feb 18
 Alt + O //switch btw ts and template (html) file
 
@@ -16,6 +21,7 @@ Any to Any Communication btw Components
 //filter in ts:
  this.currentMain = this.photos.filter(p => p.isMain === true)[0];
  
+
 2020 Feb 13
 
 $dotnet --info
