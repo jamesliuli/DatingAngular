@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 
@@ -45,4 +45,15 @@ baseUrl = 'http://localhost:5000/api/';
   setMainPhoto(userId: number, photoId: number) {
     return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + photoId + '/setMain', null);
   }
+
+  sendLikeUser(userId: number, reciptentId: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/like/' + reciptentId, null);
+  }
+
+  getLikers(userId: number, liker: boolean): Observable<User[]> {
+    const url = this.baseUrl + 'users/' + userId + '/liker?Liker=' + liker;
+    console.log(url);
+    return this.http.get<User[]>(url);
+  }
+
 }
