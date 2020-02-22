@@ -1,3 +1,11 @@
+2020 Feb 21
+ASP.NET Core Fluent API
+review: add 'like' to database
+$dotnet ef migrations add AddLikeEntity
+$dotnet ef database update
+
+
+
 2020 FEB 20
 //ng: Reactive Form 
 //validate process
