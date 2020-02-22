@@ -1,8 +1,23 @@
-<div class="container mt-5">
-  <div class="row">
-    <div *ngFor="let user of users" class="col-lg-2 col-md-3 col-sm-6">  
-        <app-member-card [user]="user"></app-member-card>
-    </div>
+<div class="text-center mt-3">
+  <h2>{{likesParam === 'Likers'  ? 'Members who like me' : 'Members who I\'ve Liked'}} </h2>
+</div>
+
+<div class="container mt-3">
+
+<div class="row">
+  <div class="btn-group">
+    <button class="btn btn-primary" [(ngModel)]="likesParam" btnRadio="Likers" (click)="loadLikes()">Members who like me</button>
+    <button class="btn btn-primary" [(ngModel)]="likesParam" btnRadio="Likees" (click)="loadLikes()">Members who I like</button>  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <div *ngFor="let user of users" class="col-sm-6 col-md-4 col-lg-4 col-xl-2">
+    <app-member-card [user]="user"></app-member-card>
   </div>
 </div>
 
+
+
+</div>

@@ -12,7 +12,7 @@ import { User } from '../_models/user';
 export class ListsComponent implements OnInit {
 
   users: User[];
-
+  likesParam = 'Likers';
   constructor(private authService: AuthService,
               private userService: UserService,
               private alertify: AlertifyService) { }
@@ -22,7 +22,15 @@ export class ListsComponent implements OnInit {
   }
 
   loadLikes() {
-    this.userService.getLikers(this.authService.decodedToken.nameid, false).subscribe( (users: User[]) => {
+    let liker = false;
+    if (this.likesParam === 'Likers') {
+      liker = true;
+    } else {
+      liker = false;
+    }
+    console.log(this.likesParam);
+
+    this.userService.getLikers(this.authService.decodedToken.nameid, liker).subscribe( (users: User[]) => {
       this.users = users;
     },
     error => {
