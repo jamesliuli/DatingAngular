@@ -17,3 +17,10 @@ $git remote add origin https://github.com/jamesliuli/DatingAngular.git
 
 //remove from 'change' list
 $git rm appsettings.json --cache
+
+//close SQLite first, then switch branch
+$git status
+$git remote -v
+
+$git checkout master
+$git reset --hard origin/master  //get all commit from master
