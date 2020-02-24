@@ -27,7 +27,7 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsave-change.guard';
 import { ErrorInterceptor, ErrorInterceptorProvider } from './services/error.interceptor';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
-
+import { MessageResolver } from './_resolvers/message.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -75,6 +75,7 @@ export function tokenGetter() {
       AuthService,
       MemberDetailResolver,
       MemberEditResolver,
+      MessageResolver,
       PreventUnsavedChanges
    ],
    bootstrap: [

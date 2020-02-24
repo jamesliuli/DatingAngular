@@ -3,6 +3,9 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
+import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
+import { Message } from '../_models/messages';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
@@ -56,4 +59,15 @@ baseUrl = 'http://localhost:5000/api/';
     return this.http.get<User[]>(url);
   }
 
+  getMessages(id: number, messageContainer?: string) {
+    let params = new HttpParams();
+    params = params.append('userId', id.toString());
+    params = params.append('MessageContainer', messageContainer);
+
+    return this.http.get<Message[]>(this.baseUrl + 'users/' + id + '/messages', {observe: 'response', params})
+    .pipe(
+      map(response => {
+        return response.body;
+      }));
+  }
 }
