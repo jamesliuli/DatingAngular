@@ -70,4 +70,8 @@ baseUrl = 'http://localhost:5000/api/';
         return response.body;
       }));
   }
+
+  getMessageThread(id: number, recipientId: number) {
+    return this.http.get<Message[]>(this.baseUrl + 'users/' + id + '/messages/thread/' + recipientId);
+  }
 }
