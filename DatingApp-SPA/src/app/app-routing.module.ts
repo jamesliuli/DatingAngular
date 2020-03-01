@@ -10,6 +10,7 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsave-change.guard';
+import { MessageResolver } from './_resolvers/message.resolver';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -18,10 +19,11 @@ const appRoutes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-             { path: 'messages', component: MessagesComponent},
+             { path: 'messages', component: MessagesComponent,
+                                  resolve: {messages: MessageResolver}},
              { path: 'lists', component: ListsComponent},
              { path: 'members', component: MemberListComponent},
-             //{ path: 'members', component: MemberListComponent, canDeactivate: [AuthGuard]},  //canActive for specific path
+             // { path: 'members', component: MemberListComponent, canDeactivate: [AuthGuard]},  //canActive for specific path
              { path: 'members/:id', component: MemberDetailComponent,
                                     resolve: {user: MemberDetailResolver}},
              { path: 'member/edit', component: MemberEditComponent,         // 'members/edit' would be wrong as 'members/:id'

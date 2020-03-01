@@ -25,7 +25,7 @@
     </div>
     <div class="col-sm-8">
       <div class="tab-panel">
-        <tabset>
+        <tabset class="member-tabset" #memberTabs>
           <tab heading="About {{user?.knownAs}}">
             <h4>Description</h4>
             <p>{{user?.introduction}}</p>
@@ -39,6 +39,9 @@
                   <img src="{{p.url}}">
               </div> -->
               <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            </tab>
+            <tab heading="Messages">
+              <div><app-member-messages [recipientId]="user.id"></app-member-messages></div>
             </tab>
         </tabset>
 
