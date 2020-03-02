@@ -29,10 +29,15 @@ namespace DatingApp.API.Data
             var user = await _context.Users.Include(p=> p.Photos).FirstOrDefaultAsync( u => u.Id == id);
             return user;
         }
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers(UserParams userParams = null)
         {
-            var users = await _context.Users.Include( p => p.Photos).ToListAsync();
-            return users;
+            if (userParams == null)
+               userParams = new UserParams();
+            var loginUser = await this.GetUser(userParams.UserId);
+            var users = _context.Users.Include( p => p.Photos).AsQueryable();
+            users = users.Where( u => u.Gender != loginUser.Gender);
+            return await users.Skip(userParams.CurrentPage> 0? (userParams.CurrentPage - 1) * userParams.PageSize : 0)
+                              .Take(userParams.PageSize).ToListAsync();
         }
         public async Task<bool> SaveAll()
         {

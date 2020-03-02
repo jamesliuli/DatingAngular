@@ -6,6 +6,7 @@ import { User } from '../_models/user';
 import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
 import { Message } from '../_models/messages';
+import { UserParams } from '../_models/userparams';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
@@ -26,10 +27,18 @@ baseUrl = 'http://localhost:5000/api/';
   constructor(private http: HttpClient) {
     }
 
-  getUsers(): Observable<User[]> {
+  getUsers(userParams: UserParams): Observable<User[]> {
     console.log(this.baseUrl + 'users');
+    let params = new HttpParams();
+    params = params.append('currentPage', userParams.CurrentPage.toString());
+    params = params.append('pageSize', userParams.PageSize.toString());
+
     //return this.http.get<User[]>(this.baseUrl + 'users', httpOptions);
-    return this.http.get<User[]>(this.baseUrl + 'users');
+    return this.http.get<User[]>(this.baseUrl + 'users', {observe: 'response', params})
+    .pipe(
+      map(response => {
+        return response.body;
+      }));
   }
 
   getUser(id: number): Observable<User> {
