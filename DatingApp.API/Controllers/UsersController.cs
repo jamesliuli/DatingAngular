@@ -110,7 +110,7 @@ namespace DatingApp.API.Controllers
             var user = await _repo.GetUser(id);
             
             var likes = await _repo.GetUserLikes(id, liker);
-            var users = await _repo.GetUsers(userParams);
+            var users = await _repo.GetUsers();
             users = users.Where( u => likes.Contains(u.Id));
             var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
             return Ok(usersToReturn);
