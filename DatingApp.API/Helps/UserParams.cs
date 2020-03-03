@@ -4,12 +4,11 @@ namespace DatingApp.API.Helps
     {
         public const int MaxPageSize = 10;
         public int CurrentPage { get; set; } = 0;
-        public int PageSize { get; set; } = 5;
-        public int UserId {get; set;}
-        public UserParams()
-        {
-            if (PageSize > MaxPageSize)
-                PageSize = MaxPageSize;
+        private int pageSize = 5;
+        public int PageSize { 
+            get {return pageSize;}
+            set { pageSize = value > MaxPageSize? MaxPageSize : value;}
         }
+        public int UserId {get; set;}
     }
 }

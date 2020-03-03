@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
 import { Message } from '../_models/messages';
 import { UserParams } from '../_models/userparams';
+import { PaginatedResult, Pagination } from '../_models/pagination';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
@@ -27,17 +28,23 @@ baseUrl = 'http://localhost:5000/api/';
   constructor(private http: HttpClient) {
     }
 
-  getUsers(userParams: UserParams): Observable<User[]> {
+  getUsers(userParams: UserParams): Observable<PaginatedResult<User[]>> {
     console.log(this.baseUrl + 'users');
+    const paginationResult = new PaginatedResult<User[]>();
+
     let params = new HttpParams();
     params = params.append('currentPage', userParams.CurrentPage.toString());
     params = params.append('pageSize', userParams.PageSize.toString());
 
-    //return this.http.get<User[]>(this.baseUrl + 'users', httpOptions);
     return this.http.get<User[]>(this.baseUrl + 'users', {observe: 'response', params})
     .pipe(
       map(response => {
-        return response.body;
+        paginationResult.result = response.body;
+        if (response.headers.get('Pagination') != null) {
+            paginationResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        console.log(JSON.stringify(paginationResult.pagination));
+        return paginationResult;
       }));
   }
 

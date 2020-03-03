@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,13 +30,14 @@ namespace DatingApp.API.Data
             var user = await _context.Users.Include(p=> p.Photos).FirstOrDefaultAsync( u => u.Id == id);
             return user;
         }
-        public async Task<IEnumerable<User>> GetUsers(UserParams userParams)
+        public async Task<PageList<User>> GetUsers(UserParams userParams)
         {
             var loginUser = await this.GetUser(userParams.UserId);
             var users = _context.Users.Include( p => p.Photos).AsQueryable();
+
             users = users.Where( u => u.Gender != loginUser.Gender);
-            return await users.Skip(userParams.CurrentPage> 0? (userParams.CurrentPage - 1) * userParams.PageSize : 0)
-                              .Take(userParams.PageSize).ToListAsync();
+
+           return await PageList<User>.CreateAsync(users, userParams.CurrentPage, userParams.PageSize);
         }
 
         public async Task<IEnumerable<User>> GetUsers()

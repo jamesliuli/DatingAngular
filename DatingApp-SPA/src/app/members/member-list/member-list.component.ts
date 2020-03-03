@@ -3,6 +3,7 @@ import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/services/user.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { UserParams } from 'src/app/_models/userparams';
+import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 
 @Component({
   selector: 'app-member-list',
@@ -12,8 +13,8 @@ import { UserParams } from 'src/app/_models/userparams';
 export class MemberListComponent implements OnInit {
 
   users: User[];
-  userParams: UserParams = { CurrentPage : 1, PageSize: 4};  // page# start from 1
-
+  userParams: UserParams = { CurrentPage : 1, PageSize: 5};  // page# start from 1
+  pagination: Pagination;
 
   constructor(private userService: UserService, private alertify: AlertifyService) { }
 
@@ -22,8 +23,10 @@ export class MemberListComponent implements OnInit {
   }
 
   loadUsers() {
-    this.userService.getUsers(this.userParams).subscribe( (users: User[]) => {
-      this.users = users;
+    this.userService.getUsers(this.userParams).subscribe( (result: PaginatedResult<User[]>) => {
+      this.users = result.result;
+      this.pagination = result.pagination;
+
     },
     error => {
       this.alertify.error(error);
