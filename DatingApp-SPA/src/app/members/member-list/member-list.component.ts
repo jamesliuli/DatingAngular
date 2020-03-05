@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/services/user.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
-import { UserParams } from 'src/app/_models/userparams';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { ActivatedRoute } from '@angular/router';
 
@@ -26,11 +25,18 @@ export class MemberListComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.users = data['users'].result;
       this.pagination = data['users'].pagination;
+      console.log(JSON.stringify(this.pagination));
     });
   }
-  /*
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    console.log(event.page);
+    this.loadUsers();
+  }
+
   loadUsers() {
-    this.userService.getUsers(this.userParams).subscribe( (result: PaginatedResult<User[]>) => {
+    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage)
+    .subscribe( (result: PaginatedResult<User[]>) => {
       this.users = result.result;
       this.pagination = result.pagination;
 
@@ -39,7 +45,7 @@ export class MemberListComponent implements OnInit {
       this.alertify.error(error);
     });
   }
-  */
+
   // loadUser(id: number){
   //   this.userService.getUser(id).subscribe( next => {
   //     this.user = this.user;
@@ -48,5 +54,5 @@ export class MemberListComponent implements OnInit {
   //     this.alertify.error(error);
   //   });
 
-  //}
+  // }
 }
