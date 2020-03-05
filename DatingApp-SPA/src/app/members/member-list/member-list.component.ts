@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { UserParams } from 'src/app/_models/userparams';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-member-list',
@@ -13,15 +14,21 @@ import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 export class MemberListComponent implements OnInit {
 
   users: User[];
-  userParams: UserParams = { CurrentPage : 1, PageSize: 5};  // page# start from 1
+  // userParams: UserParams = { CurrentPage : 1, PageSize: 5};  // page# start from 1
   pagination: Pagination;
 
-  constructor(private userService: UserService, private alertify: AlertifyService) { }
+  constructor(private userService: UserService, private alertify: AlertifyService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadUsers();
-  }
+    // this.loadUsers();
 
+    this.route.data.subscribe(data => {
+      this.users = data['users'].result;
+      this.pagination = data['users'].pagination;
+    });
+  }
+  /*
   loadUsers() {
     this.userService.getUsers(this.userParams).subscribe( (result: PaginatedResult<User[]>) => {
       this.users = result.result;
@@ -32,7 +39,7 @@ export class MemberListComponent implements OnInit {
       this.alertify.error(error);
     });
   }
-
+  */
   // loadUser(id: number){
   //   this.userService.getUser(id).subscribe( next => {
   //     this.user = this.user;

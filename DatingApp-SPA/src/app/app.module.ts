@@ -29,6 +29,7 @@ import { ErrorInterceptor, ErrorInterceptorProvider } from './services/error.int
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { MessageResolver } from './_resolvers/message.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -79,6 +80,7 @@ export function tokenGetter() {
       MemberDetailResolver,
       MemberEditResolver,
       MessageResolver,
+      MemberListResolver,
       PreventUnsavedChanges
    ],
    bootstrap: [

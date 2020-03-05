@@ -28,13 +28,13 @@ baseUrl = 'http://localhost:5000/api/';
   constructor(private http: HttpClient) {
     }
 
-  getUsers(userParams: UserParams): Observable<PaginatedResult<User[]>> {
+  getUsers(currentPage?, pageSize?): Observable<PaginatedResult<User[]>> {
     console.log(this.baseUrl + 'users');
     const paginationResult = new PaginatedResult<User[]>();
 
     let params = new HttpParams();
-    params = params.append('currentPage', userParams.CurrentPage.toString());
-    params = params.append('pageSize', userParams.PageSize.toString());
+    params = params.append('currentPage', currentPage);
+    params = params.append('pageSize', pageSize);
 
     return this.http.get<User[]>(this.baseUrl + 'users', {observe: 'response', params})
     .pipe(
