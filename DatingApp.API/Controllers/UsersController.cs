@@ -39,7 +39,7 @@ namespace DatingApp.API.Controllers
             var users = await _repo.GetUsers(userParams);
 
             var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
-            usersToReturn = usersToReturn.Where( u => u.Age >= 18 && u.Age <= 99);
+            //usersToReturn = usersToReturn.Where( u => u.Age >= 18 && u.Age <= 99);
 
             Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalItems, users.TotalPage);
             return Ok(usersToReturn);
