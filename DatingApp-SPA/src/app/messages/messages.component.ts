@@ -21,6 +21,7 @@ export class MessagesComponent implements OnInit {
     this.route.data.subscribe( data => {
       // tslint:disable-next-line: no-string-literal
       this.messages = data['messages'];
+      console.log(JSON.stringify(this.messages));
     });
   }
 
@@ -31,4 +32,7 @@ export class MessagesComponent implements OnInit {
       });
   }
 
+  deleteMessage(id: number) {
+    console.log(id);
+  }
 }

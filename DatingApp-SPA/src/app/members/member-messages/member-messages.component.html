@@ -9,11 +9,11 @@
         <!-- to them -->
         <div *ngIf="message.senderId == recipientId">
           <span class="chat-img float-left">
-            <!-- <img
+            <img
               src="{{ message.senderPhotoUrl }}"
               alt="{{ message.senderKnownAs }}"
-              class="rounded-circle"
-            /> -->
+              class="img-circle"
+            />
           </span>
           <div class="chat-body">
             <div class="header">
@@ -31,11 +31,11 @@
         <!-- to me -->
         <div *ngIf="message.senderId != recipientId">
           <span class="chat-img float-right">
-            <!-- <img
+            <img
               src="{{ message.senderPhotoUrl }}"
               alt="{{ message.senderKnownAs }}"
-              class="rounded-circle"
-            /> -->
+              class="img-circle"
+            />
           </span>
           <div class="chat-body">
             <div class="header">
