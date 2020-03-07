@@ -94,4 +94,8 @@ baseUrl = 'http://localhost:5000/api/';
   sendMessage(id: number, message: any) {
     return this.http.post(this.baseUrl + 'users/' + id + '/messages', message);
   }
+
+  deleteMessage(userId: number, messageId: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + messageId, null);
+  }
 }

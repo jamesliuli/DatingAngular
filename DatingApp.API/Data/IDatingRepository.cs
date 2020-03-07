@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DatingApp.API.Helps;
@@ -27,5 +28,7 @@ namespace DatingApp.API.Data
         Task<IEnumerable<Message>> GetMessagesForUser(MessageParams messageParams);
 
         Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
+
+        Task<bool> DeleteMessage(int userid, int id);
     }
 }

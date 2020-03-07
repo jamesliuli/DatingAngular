@@ -75,13 +75,14 @@ namespace DatingApp.API.Data
 
         public async Task<Message> GetMessage(int id)
         {
-            return await _context.Messages.FirstOrDefaultAsync( m => m.Id == id);
+            return await _context.Messages.FirstOrDefaultAsync( m => m.Id == id && (!m.SenderDeleted && !m.RecipientDeleted));
         }
 
         public async Task<IEnumerable<Message>> GetMessagesForUser(MessageParams messageParams)
         {
             var messages = _context.Messages.Include( u => u.Sender).ThenInclude( p => p.Photos)
             .Include( u => u.Recipient).ThenInclude( p => p.Photos)
+            .Where( m => !m.SenderDeleted && !m.RecipientDeleted)
             .AsQueryable();
 
             switch (messageParams.MessageContainer)
@@ -110,6 +111,27 @@ namespace DatingApp.API.Data
                                             .OrderByDescending( m => m.MessageSent)
                                             .ToListAsync();
             return messages;                                                
+        }
+
+        public async Task<bool> DeleteMessage(int userid, int id)
+        {
+            var msg = await this.GetMessage(id);
+            bool isChange = false;
+            if (msg.SenderId == userid && !msg.SenderDeleted)
+            {
+                msg.SenderDeleted = true;
+                isChange = true;
+            }
+            else if (msg.RecipientId == userid && !msg.RecipientDeleted)
+            {
+                msg.RecipientDeleted = true;
+                isChange = true;
+            }
+
+            if (isChange)
+                return await this.SaveAll();
+            
+            return false;
         }
     }
 }
