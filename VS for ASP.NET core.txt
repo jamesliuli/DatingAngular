@@ -1,3 +1,8 @@
+2020 Mar 8
+Build wwwroot -- prod build for publishing 
+run website from localhost:5000
+
+
 2020 Mar 7
 call http post with subscribe, otherwise seems not call
 js use pipe/tap to process each of messages returned from http response

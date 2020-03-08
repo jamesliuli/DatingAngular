@@ -94,9 +94,23 @@ namespace DatingApp.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-                      endpoints.MapControllers()
-            );
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
+            app.UseEndpoints(endpoints => {
+                      endpoints.MapControllers();
+                      endpoints.MapFallbackToController("Index", "Fallback");
+            });
+
+            //app.UseMvc(); not used in Asp.Net core 3.0
+            /* Warning message
+            Using 'UseMvc' to configure MVC is not supported while using Endpoint Routing. 
+            To continue using 'UseMvc', please set 'MvcOptions.EnableEndpointRouting = false'
+             inside 'ConfigureServices'. [C:\Dev\DatingApp\DatingApp.API\DatingApp.API.csproj]
+            */
+
+            //localhost:5000
+
         }
     }
 }
