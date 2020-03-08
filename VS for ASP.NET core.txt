@@ -1,9 +1,31 @@
+2020 mar 8
+use below powershell cmd to set ENV var at system level for windows,
+then all "dotnet run" will use this ENV
+$setx ASPNETCORE_ENVIRONMENT Production /M
+
+Modify Migration files with adding annotation for Identity column
+OR 
+Regenerate new Migration file just for SqlServer/MySql
+//Migration folder and run:
+$dotnet ef migrations add SqlServerInitial
+
+followed by 'dotnet run' to create table and load feeded data 
+$dotnet run
+
+//sqlserver didn't work today
+
 2020 Mar 8
 Build wwwroot -- prod build for publishing 
 run website from localhost:5000
 
 $ng build --prod
 
+install sqlserver provider package
+install package for dot net 
+Microsoft.EntityFrameworkCore.SqlServer
+
+launchSettings.json -> change from development to production
+$dotnet run (to generate SqlServer DB)
 
 2020 Mar 7
 call http post with subscribe, otherwise seems not call
@@ -251,10 +273,8 @@ messages.splice(messages.findIndex( m=> m.id === id), 1)
 https://docs.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli
 
 use sqlServer for windows and MySql fro other
-
 install package for dot net 
 Microsoft.EntityFrameworkCore.SqlServer
-
 
 //publish to Linux Server
 
