@@ -50,7 +50,7 @@ baseUrl = environment.apiUrl;
   }
 
   getUser(id: number): Observable<User> {
-    //return this.http.get<User>(this.baseUrl + 'users/' + id, httpOptions);
+    // return this.http.get<User>(this.baseUrl + 'users/' + id, httpOptions);
     return this.http.get<User>(this.baseUrl + 'users/' + id);
   }
 
