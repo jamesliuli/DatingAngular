@@ -2,6 +2,8 @@
 Build wwwroot -- prod build for publishing 
 run website from localhost:5000
 
+$ng build --prod
+
 
 2020 Mar 7
 call http post with subscribe, otherwise seems not call
