@@ -1,3 +1,8 @@
+2020 Mar 7
+call http post with subscribe, otherwise seems not call
+js use pipe/tap to process each of messages returned from http response
+
+
 2020 Feb 21
 ASP.NET Core Fluent API
 review: add 'like' to database

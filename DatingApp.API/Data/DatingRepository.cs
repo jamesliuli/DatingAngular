@@ -75,7 +75,7 @@ namespace DatingApp.API.Data
 
         public async Task<Message> GetMessage(int id)
         {
-            return await _context.Messages.FirstOrDefaultAsync( m => m.Id == id && (!m.SenderDeleted && !m.RecipientDeleted));
+            return await _context.Messages.FirstOrDefaultAsync( m => m.Id == id);
         }
 
         public async Task<IEnumerable<Message>> GetMessagesForUser(MessageParams messageParams)
@@ -132,6 +132,14 @@ namespace DatingApp.API.Data
                 return await this.SaveAll();
             
             return false;
+        }
+
+        public async Task<bool> MarkMessageAsRead(int userid, int id)
+        {
+            var msg = await this.GetMessage(id);
+            msg.IsRead = true;
+            msg.DateRead = DateTime.Now;
+            return await this.SaveAll();
         }
     }
 }

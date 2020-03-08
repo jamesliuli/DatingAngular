@@ -98,4 +98,10 @@ baseUrl = 'http://localhost:5000/api/';
   deleteMessage(userId: number, messageId: number) {
     return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + messageId, null);
   }
+
+  markAsRead(userId: number, messageId: number) {
+    const url = this.baseUrl + 'users/' + userId + '/messages/' + messageId + '/read';
+    console.log(url);
+    return this.http.post(url, {});
+  }
 }

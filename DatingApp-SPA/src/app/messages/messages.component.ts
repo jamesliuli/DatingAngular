@@ -38,7 +38,7 @@ export class MessagesComponent implements OnInit {
     this.userService.deleteMessage(this.authService.decodedToken.nameid, id)
     .subscribe( () => {
         const idx = this.messages.findIndex( m => m.id === id);
-        console.log('idx of msg' + idx);
+        console.log('idx of msg ' + idx);
         this.messages.splice( idx, 1);
         this.alertify.success('Deleted');
       }, error => {

@@ -30,5 +30,7 @@ namespace DatingApp.API.Data
         Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
 
         Task<bool> DeleteMessage(int userid, int id);
+
+        Task<bool> MarkMessageAsRead(int userid, int id);
     }
 }
