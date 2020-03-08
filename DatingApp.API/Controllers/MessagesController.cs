@@ -92,5 +92,42 @@ namespace DatingApp.API.Controllers
 
             return BadRequest("Failed to send message");
         }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> DeleteMessage(int userId, int id)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var messageFromRepo = await _repo.GetMessage(id);
+            if (messageFromRepo == null)
+                return NotFound();
+
+            if (await _repo.DeleteMessage(userId, id))
+            {
+                return Ok();
+            }
+
+            return BadRequest("Delete message failed");
+        }
+
+        [HttpPost("{id}/read")]
+        public async Task<IActionResult> MarkMessageAsRead(int userId, int id)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var messageFromRepo = await _repo.GetMessage(id);
+            if (messageFromRepo == null)
+                return NotFound();
+
+            if (await _repo.MarkMessageAsRead(userId, id))
+            {
+                return Ok();
+            }
+
+            return BadRequest("Mark message failed");
+        }
+
     }
 }

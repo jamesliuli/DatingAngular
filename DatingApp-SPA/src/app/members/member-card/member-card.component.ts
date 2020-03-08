@@ -15,7 +15,8 @@ export class MemberCardComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private userService: UserService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService
+              ) { }
 
   ngOnInit() {
   }

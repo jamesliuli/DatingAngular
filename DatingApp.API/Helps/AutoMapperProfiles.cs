@@ -30,7 +30,16 @@ namespace DatingApp.API.Helps
 
             CreateMap<UserForRegisterDto, User>();
 
-            CreateMap<Message, MessageForReturnDto>();
+            CreateMap<Message, MessageForReturnDto>()
+            .ForMember( dest => dest.SenderKnownAs, opt =>
+                    opt.MapFrom( src => src.Sender.KnownAs))
+            .ForMember( dest => dest.SenderPhotoUrl, opt =>
+                   opt.MapFrom( src => src.Sender.Photos.FirstOrDefault( p => p.IsMain).Url))
+            .ForMember( dest => dest.RecipientKnownAs, opt =>
+                    opt.MapFrom( src => src.Recipient.KnownAs))
+            .ForMember( dest => dest.RecipientPhotoUrl, opt =>
+                    opt.MapFrom( src => src.Recipient.Photos.FirstOrDefault( p => p.IsMain).Url));
+
             CreateMap<MessageForCreationDto, Message>();
 
         }

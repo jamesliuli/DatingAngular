@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,10 +30,19 @@ namespace DatingApp.API.Data
             var user = await _context.Users.Include(p=> p.Photos).FirstOrDefaultAsync( u => u.Id == id);
             return user;
         }
+        public async Task<PageList<User>> GetUsers(UserParams userParams)
+        {
+            var loginUser = await this.GetUser(userParams.UserId);
+            var users = _context.Users.Include( p => p.Photos).AsQueryable();
+
+            users = users.Where( u => u.Gender != loginUser.Gender);
+
+           return await PageList<User>.CreateAsync(users, userParams.CurrentPage, userParams.PageSize);
+        }
+
         public async Task<IEnumerable<User>> GetUsers()
         {
-            var users = await _context.Users.Include( p => p.Photos).ToListAsync();
-            return users;
+            return await _context.Users.Include( p => p.Photos).ToListAsync();
         }
         public async Task<bool> SaveAll()
         {
@@ -72,6 +82,7 @@ namespace DatingApp.API.Data
         {
             var messages = _context.Messages.Include( u => u.Sender).ThenInclude( p => p.Photos)
             .Include( u => u.Recipient).ThenInclude( p => p.Photos)
+            .Where( m => !m.SenderDeleted && !m.RecipientDeleted)
             .AsQueryable();
 
             switch (messageParams.MessageContainer)
@@ -100,6 +111,35 @@ namespace DatingApp.API.Data
                                             .OrderByDescending( m => m.MessageSent)
                                             .ToListAsync();
             return messages;                                                
+        }
+
+        public async Task<bool> DeleteMessage(int userid, int id)
+        {
+            var msg = await this.GetMessage(id);
+            bool isChange = false;
+            if (msg.SenderId == userid && !msg.SenderDeleted)
+            {
+                msg.SenderDeleted = true;
+                isChange = true;
+            }
+            else if (msg.RecipientId == userid && !msg.RecipientDeleted)
+            {
+                msg.RecipientDeleted = true;
+                isChange = true;
+            }
+
+            if (isChange)
+                return await this.SaveAll();
+            
+            return false;
+        }
+
+        public async Task<bool> MarkMessageAsRead(int userid, int id)
+        {
+            var msg = await this.GetMessage(id);
+            msg.IsRead = true;
+            msg.DateRead = DateTime.Now;
+            return await this.SaveAll();
         }
     }
 }

@@ -7,6 +7,7 @@ using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using DatingApp.API.Helpers;
+using DatingApp.API.Helps;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,14 +32,16 @@ namespace DatingApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
             var loginUser = await _repo.GetUser(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
-            var users = await _repo.GetUsers();
-            users = users.Where( u => u.Gender != loginUser.Gender);
-            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
-            usersToReturn = usersToReturn.Where( u => u.Age >= 18 && u.Age <= 99);
+            userParams.UserId = loginUser.Id;
+            var users = await _repo.GetUsers(userParams);
 
+            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+            //usersToReturn = usersToReturn.Where( u => u.Age >= 18 && u.Age <= 99);
+
+            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalItems, users.TotalPage);
             return Ok(usersToReturn);
         }
 
@@ -102,6 +105,7 @@ namespace DatingApp.API.Controllers
         [HttpGet("{id}/liker")]        
         public async Task<IActionResult> GetLikes(int id, bool liker)
         {
+            UserParams userParams = new UserParams();
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
             var user = await _repo.GetUser(id);

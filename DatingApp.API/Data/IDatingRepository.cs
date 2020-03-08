@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DatingApp.API.Helps;
@@ -11,8 +12,9 @@ namespace DatingApp.API.Data
          void Delete<T>(T entity) where T: class;
 
          Task<bool> SaveAll();
+         Task<PageList<User>> GetUsers(UserParams userParams);
          Task<IEnumerable<User>> GetUsers();
-
+       
          Task<User> GetUser(int id);
 
         Task<Photo> GetPhoto(int id);
@@ -26,5 +28,9 @@ namespace DatingApp.API.Data
         Task<IEnumerable<Message>> GetMessagesForUser(MessageParams messageParams);
 
         Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
+
+        Task<bool> DeleteMessage(int userid, int id);
+
+        Task<bool> MarkMessageAsRead(int userid, int id);
     }
 }

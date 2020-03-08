@@ -6,6 +6,8 @@ import { User } from '../_models/user';
 import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
 import { Message } from '../_models/messages';
+import { UserParams } from '../_models/userparams';
+import { PaginatedResult, Pagination } from '../_models/pagination';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
@@ -26,10 +28,24 @@ baseUrl = 'http://localhost:5000/api/';
   constructor(private http: HttpClient) {
     }
 
-  getUsers(): Observable<User[]> {
+  getUsers(currentPage?, pageSize?): Observable<PaginatedResult<User[]>> {
     console.log(this.baseUrl + 'users');
-    //return this.http.get<User[]>(this.baseUrl + 'users', httpOptions);
-    return this.http.get<User[]>(this.baseUrl + 'users');
+    const paginationResult = new PaginatedResult<User[]>();
+
+    let params = new HttpParams();
+    params = params.append('currentPage', currentPage);
+    params = params.append('pageSize', pageSize);
+
+    return this.http.get<User[]>(this.baseUrl + 'users', {observe: 'response', params})
+    .pipe(
+      map(response => {
+        paginationResult.result = response.body;
+        if (response.headers.get('Pagination') != null) {
+            paginationResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        console.log(JSON.stringify(paginationResult.pagination));
+        return paginationResult;
+      }));
   }
 
   getUser(id: number): Observable<User> {
@@ -77,5 +93,15 @@ baseUrl = 'http://localhost:5000/api/';
 
   sendMessage(id: number, message: any) {
     return this.http.post(this.baseUrl + 'users/' + id + '/messages', message);
+  }
+
+  deleteMessage(userId: number, messageId: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/messages/' + messageId, null);
+  }
+
+  markAsRead(userId: number, messageId: number) {
+    const url = this.baseUrl + 'users/' + userId + '/messages/' + messageId + '/read';
+    console.log(url);
+    return this.http.post(url, {});
   }
 }

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { BsDropdownModule, TabsModule, BsDatepickerModule, ButtonsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule, ButtonsModule, PaginationModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxGalleryModule } from 'ngx-gallery';
@@ -29,6 +29,7 @@ import { ErrorInterceptor, ErrorInterceptorProvider } from './services/error.int
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { MessageResolver } from './_resolvers/message.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -65,6 +66,7 @@ export function tokenGetter() {
       NgxGalleryModule,
       ButtonsModule,
       FileUploadModule,
+      PaginationModule.forRoot(),
       JwtModule.forRoot({
          config: {
             tokenGetter: tokenGetter,
@@ -78,6 +80,7 @@ export function tokenGetter() {
       MemberDetailResolver,
       MemberEditResolver,
       MessageResolver,
+      MemberListResolver,
       PreventUnsavedChanges
    ],
    bootstrap: [
