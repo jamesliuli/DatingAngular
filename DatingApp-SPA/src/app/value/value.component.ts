@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 export function compute(num: any) {
   if (num < 0) {
@@ -20,7 +21,7 @@ export function compute(num: any) {
 export class ValueComponent implements OnInit {
 
   values: any;
-
+  baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   ngOnInit() {

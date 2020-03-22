@@ -29,11 +29,32 @@ namespace DatingApp.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllers();
 
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+        // Convention Based Names: dev/prod
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            //use Sqlite
+            // services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            // ConfigureServices(services);
+
+            //use sql server
+            var connString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(connString, 
+                                               builder => builder.UseRowNumberForPaging()));
+            ConfigureServices(services);
+        }
+        public void ConfigureProductionServices(IServiceCollection services)
+        {
+            //services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            var connString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(connString, 
+                                               builder => builder.UseRowNumberForPaging()));
+            ConfigureServices(services);
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {/*  my code, working with sqllite
+            services.AddControllers();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers().AddNewtonsoftJson( opt =>
             {
@@ -59,6 +80,30 @@ namespace DatingApp.API
             });
 
             services.AddScoped<LogUserActivity>();
+        */
+            services.AddControllers().AddNewtonsoftJson(opt => 
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+            services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+            services.AddAutoMapper(typeof(DatingRepository).Assembly);
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => 
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+            services.AddScoped<LogUserActivity>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,9 +139,27 @@ namespace DatingApp.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-                      endpoints.MapControllers()
-            );
+            app.UseEndpoints(endpoints => {
+                      endpoints.MapControllers();
+            });
+            //app.UseDefaultFiles();
+            //app.UseStaticFiles();
+
+            //for run production version website from localton wwwroot
+            // app.UseEndpoints(endpoints => {
+            //           endpoints.MapControllers();
+            //           endpoints.MapFallbackToController("Index", "Fallback");
+            // });
+
+            //app.UseMvc(); not used in Asp.Net core 3.0
+            /* Warning message
+            Using 'UseMvc' to configure MVC is not supported while using Endpoint Routing. 
+            To continue using 'UseMvc', please set 'MvcOptions.EnableEndpointRouting = false'
+             inside 'ConfigureServices'. [C:\Dev\DatingApp\DatingApp.API\DatingApp.API.csproj]
+            */
+
+            //localhost:5000
+
         }
     }
 }

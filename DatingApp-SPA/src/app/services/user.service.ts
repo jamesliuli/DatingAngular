@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
@@ -8,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Message } from '../_models/messages';
 import { UserParams } from '../_models/userparams';
 import { PaginatedResult, Pagination } from '../_models/pagination';
+import { environment } from 'src/environments/environment';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
@@ -19,8 +19,9 @@ import { PaginatedResult, Pagination } from '../_models/pagination';
   providedIn: 'root'
 })
 export class UserService {
-// baseurl: environment.apiUrl;
-baseUrl = 'http://localhost:5000/api/';
+
+baseUrl = environment.apiUrl;
+// baseUrl = 'http://localhost:5000/api/';
 
 /**
  *
@@ -49,7 +50,7 @@ baseUrl = 'http://localhost:5000/api/';
   }
 
   getUser(id: number): Observable<User> {
-    //return this.http.get<User>(this.baseUrl + 'users/' + id, httpOptions);
+    // return this.http.get<User>(this.baseUrl + 'users/' + id, httpOptions);
     return this.http.get<User>(this.baseUrl + 'users/' + id);
   }
 
