@@ -33,12 +33,22 @@ namespace DatingApp.API
         // Convention Based Names: dev/prod
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            //use Sqlite
+            // services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            // ConfigureServices(services);
+
+            //use sql server
+            var connString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(connString, 
+                                               builder => builder.UseRowNumberForPaging()));
             ConfigureServices(services);
         }
         public void ConfigureProductionServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            var connString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(connString, 
+                                               builder => builder.UseRowNumberForPaging()));
             ConfigureServices(services);
         }
 
@@ -129,13 +139,17 @@ namespace DatingApp.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-
             app.UseEndpoints(endpoints => {
                       endpoints.MapControllers();
-                      endpoints.MapFallbackToController("Index", "Fallback");
             });
+            //app.UseDefaultFiles();
+            //app.UseStaticFiles();
+
+            //for run production version website from localton wwwroot
+            // app.UseEndpoints(endpoints => {
+            //           endpoints.MapControllers();
+            //           endpoints.MapFallbackToController("Index", "Fallback");
+            // });
 
             //app.UseMvc(); not used in Asp.Net core 3.0
             /* Warning message

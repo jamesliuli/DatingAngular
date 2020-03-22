@@ -1,6 +1,20 @@
+2020 Mar 10
+Asp.Net Core Identity
+
+install package:
+Ctrl + P "Microsoft.AspNetCore.Identity.EntityFrameworkCore"
+3.0.0
+
+
+
+2020 Mar 9
+sql server 2008 doesn't suppoer "FETCH NEXT", need upgrade to 2012
+
+
 2020 mar 8
 use below powershell cmd to set ENV var at system level for windows,
 then all "dotnet run" will use this ENV
+$echo %ASPNETCORE_ENVIRONMENT%
 $setx ASPNETCORE_ENVIRONMENT Production /M
 
 Modify Migration files with adding annotation for Identity column
