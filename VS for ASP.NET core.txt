@@ -1,3 +1,15 @@
+2020 Mar 23
+Use Identity instead of passwordSalt
+Update Database, and seeding
+
+2020 Mar 22
+Start Admin page/Asp Identity
+install NuGet Package: ctrl+Shift+P 
+>Microsoft.AspNetCore.Identity.EntityFrameworkCore; 3.0.0
+
+
+
+
 2020 Mar 10
 Asp.Net Core Identity
 
