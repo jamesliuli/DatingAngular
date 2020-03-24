@@ -11,23 +11,32 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace DatingApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController: ControllerBase
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
 
         public IMapper _mapper { get; }
+        public UserManager<User> _userManager { get; }
 
-        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
+        public SignInManager<User> _signInManager {get;}
+
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper, 
+                UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _repo = repo;
             _config = config;
             _mapper = mapper;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         //api/auth/register
@@ -64,11 +73,16 @@ namespace DatingApp.API.Controllers
             var userFromRepo = await _repo.Login(userForLoginDto.username.ToLower(), userForLoginDto.password);
             if (userFromRepo == null)
                 return Unauthorized();
-            var claims = new []
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
+                new Claim(ClaimTypes.Name, userFromRepo.UserName)
             };
+
+            var roles = await _userManager.GetClaimsAsync(userFromRepo);
+            foreach (var role in roles) {
+                claims.Add(role);
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8
             .GetBytes(_config.GetSection("AppSettings:Token").Value));
