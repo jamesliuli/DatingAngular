@@ -30,6 +30,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { MessageResolver } from './_resolvers/message.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -51,6 +52,7 @@ export function tokenGetter() {
       MemberMessagesComponent,
       PhotoEditorComponent,
       TimeAgoPipe,
+      AdminPanelComponent
    ],
    imports: [
       BrowserModule,
