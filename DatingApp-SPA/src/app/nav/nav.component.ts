@@ -47,5 +47,6 @@ export class NavComponent implements OnInit {
     this.auth.currentUser = null;
     this.alertifyServer.message('logged out');
     this.route.navigate(['/home']);
+    this.auth.loginUserChangedSubject.next(true);
   }
 }

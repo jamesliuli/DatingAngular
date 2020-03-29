@@ -15,11 +15,18 @@ export class HasRoleDirective implements OnInit {
   }
 
   ngOnInit() {
+
+    this.authService.loginUserChanged.subscribe(() => {
+      this.ShowAdminPanel();
+    });
+  }
+
+  ShowAdminPanel() {
       if (!this.authService.decodedToken) {
-        this.viewContainerRef.clear();
-        this.isVisible = false;
-        console.log('hide admin');
-        return;
+          this.viewContainerRef.clear();
+          this.isVisible = false;
+          console.log('hide admin');
+          return;
       }
 
       const userRoles = this.authService.decodedToken.role as Array<string>;
