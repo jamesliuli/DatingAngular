@@ -1,3 +1,6 @@
+2020 Mar 29
+Add Route Data and check in Auth_Guard for matched roles
+
 2020 Mar 28
 Update register
 Add AdminController

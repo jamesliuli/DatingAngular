@@ -14,8 +14,18 @@ export class AuthGuard implements CanActivate {
               private alertify: AlertifyService) {
   }
 
-  canActivate(): boolean {
+  canActivate(next: ActivatedRouteSnapshot): boolean {
     if (this.auth.loggedIn()) {
+         // tslint:disable-next-line: no-string-literal
+         const roles = next.firstChild.data['roles'] as Array<string>;
+         if (roles) {
+            console.log(roles);
+            if (!this.auth.isRoleMatch(roles)) {
+              this.alertify.error('You are not allowed to access!!!');
+              this.route.navigate(['/member']);
+              return false;
+            }
+          }
          return true;
     }
 

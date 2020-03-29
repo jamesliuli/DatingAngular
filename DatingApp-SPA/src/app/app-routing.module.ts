@@ -32,7 +32,7 @@ const appRoutes: Routes = [
              { path: 'member/edit', component: MemberEditComponent,         // 'members/edit' would be wrong as 'members/:id'
                                     resolve: {user: MemberEditResolver},
                                     canDeactivate: [PreventUnsavedChanges]},
-              { path: 'admin', component: AdminPanelComponent}
+              { path: 'admin', component: AdminPanelComponent, data: { roles: ['Admin', 'Moderator']}}
                                   ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
