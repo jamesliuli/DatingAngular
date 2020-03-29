@@ -16,6 +16,7 @@ export class HasRoleDirective implements OnInit {
 
   ngOnInit() {
 
+    // Subscribe user login changed event
     this.authService.loginUserChanged.subscribe(() => {
       this.ShowAdminPanel();
     });
