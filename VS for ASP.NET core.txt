@@ -1,5 +1,6 @@
 2020 Mar 29
-Add Route Data and check in Auth_Guard for matched roles
+1. Add Route Data and check in Auth_Guard for matched roles
+2. Structure Directives! Only work after refresh Browser???
 
 2020 Mar 28
 Update register

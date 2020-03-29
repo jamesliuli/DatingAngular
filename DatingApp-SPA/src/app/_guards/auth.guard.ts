@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
             console.log(roles);
             if (!this.auth.isRoleMatch(roles)) {
               this.alertify.error('You are not allowed to access!!!');
-              this.route.navigate(['/member']);
+              this.route.navigate(['members']);
               return false;
             }
           }
