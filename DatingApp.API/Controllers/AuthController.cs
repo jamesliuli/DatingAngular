@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
@@ -23,14 +24,17 @@ namespace DatingApp.API.Controllers
     {
         private readonly IConfiguration _config;
 
+        public DataContext _context { get; }
         public IMapper _mapper { get; }
         public UserManager<User> _userManager { get; }
 
         public SignInManager<User> _signInManager {get;}
 
-        public AuthController(IConfiguration config, IMapper mapper, 
+        public AuthController(DataContext context,
+                IConfiguration config, IMapper mapper, 
                 UserManager<User> userManager, SignInManager<User> signInManager)
         {
+            _context = context;
             _config = config;
             _mapper = mapper;
             _userManager = userManager;
@@ -62,13 +66,16 @@ namespace DatingApp.API.Controllers
         //post URL http:5000/api/auth/login
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+            // missed photoUrl here, before use _context.Users.Include(p => p.Photos)
             var user = await _userManager.FindByNameAsync(userForLoginDto.username);
             if (user != null)
             {
                 var result = await _signInManager.CheckPasswordSignInAsync(user, userForLoginDto.password, false);
                 if (result.Succeeded)
                 {
-                    var appUser = _mapper.Map<UserForListDto>(user);
+                    // get photo
+                    var userFromRepo = await _context.Users.Include(p=>p.Photos).FirstOrDefaultAsync( x=> x.UserName == user.UserName);
+                    var appUser = _mapper.Map<UserForListDto>(userFromRepo);
                     return Ok( new {
                         token = GenerateJwtToken(user).Result,
                         user = appUser
