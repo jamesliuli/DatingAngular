@@ -32,7 +32,7 @@ namespace DatingApp.API.Controllers
                new
                {
                    id = user.Id,
-                   name = user.UserName,
+                   userName = user.UserName,
                    roles = (from userRole in user.UserRoles
                             join role in _context.Roles
                             on userRole.RoleId equals role.Id

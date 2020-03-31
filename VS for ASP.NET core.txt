@@ -1,3 +1,6 @@
+2020 Mar 30
+Add service to get users WithRoles amd display in user management
+
 2020 Mar 29
 1. Add Route Data and check in Auth_Guard for matched roles
 2. Structure Directives! Only work after refresh Browser???
