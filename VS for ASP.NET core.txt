@@ -1,3 +1,10 @@
+2020 april 1
+Passing data into Roles Modals page
+
+2020 mar 31
+Modales - ngx-boostrap
+
+
 2020 Mar 30
 Add service to get users WithRoles amd display in user management
 
