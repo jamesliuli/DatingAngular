@@ -1,3 +1,13 @@
+2020 april 2
+send data out from modal page
+[...roles.filter(el=> el.checked === 'checked')] ........
+"___spreaArray not found in tslib, conside upgrade it", upgrade to 1.10.0 and close VS, solved
+npm install --save tslib@1.10.0
+
+no function impact though
+
+update usert roles from front to end
+
 2020 april 1
 Passing data into Roles Modals page
 

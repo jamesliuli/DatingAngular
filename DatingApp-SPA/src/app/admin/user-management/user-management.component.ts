@@ -34,7 +34,17 @@ export class UserManagementComponent implements OnInit {
         roles: this.getUserEditRoles(user)
     };
     this.bsModalRef = this.modalService.show(RolesModalComponent, {initialState});
-    this.bsModalRef.content.closeBtnName = 'Close';
+    this.bsModalRef.content.updateRolesEvent.subscribe( (values) => {
+        const rolesToUpdate = {
+          roleNames: [...values.filter( el => el.checked === true).map( el => el.name)]
+        };
+        // console.log(rolesToUpdate);
+        this.adminService.updateUserRoles(user, rolesToUpdate).subscribe( (roles) => {
+            user.roles = [...rolesToUpdate.roleNames];
+        }, error => {
+          console.log(error);
+        });
+    });
   }
 
   getUserEditRoles(user: User): any {
