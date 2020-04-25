@@ -1,3 +1,6 @@
+2020 april 4
+photo challenge: add approve/reject for photot management
+
 2020 april 2
 send data out from modal page
 [...roles.filter(el=> el.checked === 'checked')] ........
