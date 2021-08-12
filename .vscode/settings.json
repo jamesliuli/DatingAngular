@@ -1,5 +1,6 @@
 {
     "prettier.singleQuote": true,
     "typescript.preferences.quoteStyle": "single",
-    "javascript.preferences.quoteStyle": "single"
+    "javascript.preferences.quoteStyle": "single",
+    "angular.enable-strict-mode-prompt": false
 }
